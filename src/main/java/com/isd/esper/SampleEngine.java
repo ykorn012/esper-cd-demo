@@ -27,7 +27,7 @@ public class SampleEngine {
 		epl = "select item, count(*), avg(price) from SampleEvent.win:time(3 sec)";
 		stat = service.getEPAdministrator().createEPL(epl);
 
-		listener = new SampleListener();
+		listener = new SampleListener();  
 		stat.addListener(listener);
 
 		// --- Event를 발생시켜 봅니다.
