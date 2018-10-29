@@ -49,10 +49,13 @@ public class WarningEventSubscriber implements StatementSubscriber {
         CDEvent cd2 = (CDEvent) eventMap.get("cd2");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("--------------------------------------------------");
-        sb.append("\n- [WARNING] : Etching Process - Virtual Metrology CD SPIKE DETECTED = " + cd1 + "," + cd2);
-        sb.append("\n--------------------------------------------------");
+        sb.append("---------------------------------------------------------------------------------");
+        sb.append("\n- [WARNING] : Etching Equipment #1 - Virtual Metrology CD SPIKE DETECTED !!!\n");
+        sb.append("              Detect #1 : " + cd1 + " > ");
+        sb.append("\n              Detect #2 : " + cd2);
+        sb.append("\n---------------------------------------------------------------------------------");
 
         LOG.debug(sb.toString());
-    }
+    }    
+
 }

@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cor.cep.event.CDEvent;
-
 import com.cor.cep.handler.CDEventHandler;
 
 /**
@@ -40,16 +39,16 @@ public class RandomCDEventGenerator {
 
                 LOG.debug(getStartingMessage());
                 
-                int count = 0;
+                int count = 1;
                 while (count < noOfCDEvents) {
-                    CDEvent ve = new CDEvent(new Random().nextInt(500), new Date());
+                    CDEvent ve = new CDEvent(count, new Random().nextInt(500), new Date());
                     CDEventHandler.handle(ve);
                     count++;
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         LOG.error("Thread Interrupted", e);
-                    }
+                    }                    
                 }
 
             }

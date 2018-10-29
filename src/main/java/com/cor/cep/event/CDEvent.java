@@ -7,7 +7,10 @@ import java.util.Date;
  * CDEventHandler picks these up and processes them.
  */
 public class CDEvent {
-
+	
+	/** Wafer Index in Etching. */
+	int index = 0;
+	
     /** CD in Etching. */
     private int cd;
     
@@ -23,7 +26,8 @@ public class CDEvent {
      * @param CD CD in Etching
      * @param timeOfReading Time of Reading
      */
-    public CDEvent(int cd, Date timeOfReading) {
+    public CDEvent(int index, int cd, Date timeOfReading) {
+    	this.index = index;
         this.cd = cd;
         this.timeOfReading = timeOfReading;
     }
@@ -32,6 +36,11 @@ public class CDEvent {
      * Get the CD.
      * @return CD in Celsius
      */
+    
+    public int getIndex() {
+        return index;
+    }
+    
     public int getCD() {
         return cd;
     }
@@ -46,7 +55,7 @@ public class CDEvent {
 
     @Override
     public String toString() {
-        return "Etching Process - Virtual Metrology CDEvent : [" + cd + "mm]";
+        return "Etching Actual Metrology : Sampling Wafer #" + index + " CD : [" + cd + "mm]";
     }
 
 }
