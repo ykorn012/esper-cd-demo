@@ -55,7 +55,7 @@ public class CDEvent {
 
     @Override
     public String toString() {
-    	return "Etching Actual Metrology : Sampling Wafer #" + index + " CD : [" + cd + "mm]";
+    	return "Etching Actual Metrology : Sampling Wafer #" + index + " CD [" + cd + " mm]";
     }
 
 }

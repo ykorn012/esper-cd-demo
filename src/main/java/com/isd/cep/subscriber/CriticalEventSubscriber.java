@@ -65,13 +65,13 @@ public class CriticalEventSubscriber implements StatementSubscriber {
 
         StringBuilder sb = new StringBuilder();
        
-        sb.append("****************************************************************************************");
+        sb.append("***************************************************************************************************");
         sb.append("\n* [CRITICAL] : Etching Equipment #1 - Actual Metrology CRITICAL EVENT DETECTED!!!\n");
-        sb.append("               Detect #1 : " + cd1 + " > ");
-        sb.append("\n               Detect #2 : " + cd2 + " > ");
-        sb.append("\n               Detect #3 : " + cd3 + " > ");
-        sb.append("\n               Detect #4 : " + cd4);
-        sb.append("\n****************************************************************************************");
+        sb.append("               [Detect] " + cd1 + " > ");
+        sb.append("\n               [Detect] " + cd2 + " > ");
+        sb.append("\n               [Detect] " + cd3 + " > ");
+        sb.append("\n               [Detect] " + cd4);
+        sb.append("\n***************************************************************************************************");
                 
         LOG.debug(sb.toString());
     }    
