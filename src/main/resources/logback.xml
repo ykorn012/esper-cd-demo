@@ -8,7 +8,7 @@
     </layout>
   </appender>
    
-  <logger name="com.cor.cep" level="DEBUG"/>
+  <logger name="com.isd.cep" level="DEBUG"/>
    
  
   <root level="WARN">

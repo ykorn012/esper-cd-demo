@@ -1,4 +1,4 @@
-package com.cor.cep.subscriber;
+package com.isd.cep.subscriber;
 
 /**
  * Just a convenience interface to let us easily contain the Esper statements with the Subscribers -

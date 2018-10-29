@@ -1,11 +1,11 @@
-package com.cor.cep;
+package com.isd.cep;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cor.cep.util.RandomCDEventGenerator;
+import com.isd.cep.util.RandomCDEventGenerator;
 
 /**
  * Entry point for the Demo. Run this from your IDE, or from the command line using 'mvn exec:java'.

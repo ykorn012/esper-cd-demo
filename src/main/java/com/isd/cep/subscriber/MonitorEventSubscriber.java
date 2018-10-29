@@ -1,4 +1,4 @@
-package com.cor.cep.subscriber;
+package com.isd.cep.subscriber;
 
 import java.util.Map;
 

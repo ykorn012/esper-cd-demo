@@ -1,4 +1,4 @@
-package com.cor.cep.handler;
+package com.isd.cep.handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.cor.cep.event.CDEvent;
-import com.cor.cep.subscriber.StatementSubscriber;
 import com.espertech.esper.client.Configuration;
 import com.espertech.esper.client.EPServiceProvider;
 import com.espertech.esper.client.EPServiceProviderManager;
 import com.espertech.esper.client.EPStatement;
+import com.isd.cep.event.CDEvent;
+import com.isd.cep.subscriber.StatementSubscriber;
 
 /**
  * This class handles incoming CD Events. It processes them through the EPService, to which
@@ -51,7 +51,7 @@ public class CDEventHandler implements InitializingBean{
 
         LOG.debug("Initializing Servcie ..");
         Configuration config = new Configuration();
-        config.addEventTypeAutoName("com.cor.cep.event");
+        config.addEventTypeAutoName("com.isd.cep.event");
         epService = EPServiceProviderManager.getDefaultProvider(config);
 
         createCriticalCDCheckExpression();

@@ -1,4 +1,4 @@
-package com.cor.cep.util;
+package com.isd.cep.util;
 
 import java.util.Date;
 import java.util.Random;
@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cor.cep.event.CDEvent;
-import com.cor.cep.handler.CDEventHandler;
+import com.isd.cep.event.CDEvent;
+import com.isd.cep.handler.CDEventHandler;
 
 /**
  * Just a simple class to create a number of Random CDEvents and pass them off to the
