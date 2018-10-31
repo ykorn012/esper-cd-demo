@@ -19,11 +19,11 @@ public class CDEvent {
     
     /**
      * Single value constructor.
-     * @param value CD in Etching.
+     * @param value CD in Etching Machine.
      */
     /**
      * CD constructor.
-     * @param index waferId in Etching
+     * @param index waferId in Etching Machine
      * @param CD CD in Etching
      * @param timeOfReading Time of Reading
      */
@@ -39,7 +39,7 @@ public class CDEvent {
     
     /**
      * Get the CD.
-     * @return CD in Celsius
+     * @return CD in Etching Machine
      */
     public int getCD() {
         return cd;

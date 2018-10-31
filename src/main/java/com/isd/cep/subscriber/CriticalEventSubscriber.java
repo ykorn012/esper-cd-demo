@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.espertech.esper.client.EPServiceProvider;
-
+import com.espertech.esper.client.EPServiceProviderManager;
 import com.isd.cep.event.CDEvent;
 
 /**
@@ -65,14 +65,16 @@ public class CriticalEventSubscriber implements StatementSubscriber {
 
         StringBuilder sb = new StringBuilder();
        
-        sb.append("***************************************************************************************************");
-        sb.append("\n* [CRITICAL] : Etching Equipment #1 - Actual Metrology CRITICAL EVENT DETECTED!!!\n");
+        sb.append("**************************************************************************************");
+        sb.append("\n- [CRITICAL] : Etching Equipment #1 - Actual Metrology CRITICAL EVENT DETECTED!!!\n");
         sb.append("               [Detect] " + cd1 + " > ");
         sb.append("\n               [Detect] " + cd2 + " > ");
         sb.append("\n               [Detect] " + cd3 + " > ");
         sb.append("\n               [Detect] " + cd4);
-        sb.append("\n***************************************************************************************************");
-                
+        sb.append("\n**************************************************************************************");
+        
+        epService = EPServiceProviderManager.getDefaultProvider();
+        epService.getEPRuntime().setVariableValue("CurrentEvent", "CRITICAL");
         LOG.debug(sb.toString());
     }    
 }

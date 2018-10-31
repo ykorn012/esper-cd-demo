@@ -42,14 +42,15 @@ public class RandomCDEventGenerator {
                 int count = 1;
                 while (count < noOfCDEvents) {
                     CDEvent ve = new CDEvent(count, new Random().nextInt(500), new Date());
-                    CDEventHandler.handle(ve);
-                    count++;
                     try {
+                    	CDEventHandler.handle(ve);
+                    	count++;
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         LOG.error("Thread Interrupted", e);
                     }                    
                 }
+                System.exit(0);
 
             }
         });
@@ -58,11 +59,11 @@ public class RandomCDEventGenerator {
     
     private String getStartingMessage(){
         StringBuilder sb = new StringBuilder();
-        sb.append("\n\n************************************************************");
-        sb.append("\n* STARTING - ");
-        sb.append("\n* PLEASE WAIT - CDs ARE RANDOM SO MAY TAKE");
+        sb.append("\n\n************************************************************************\"");
+        sb.append("\n* STARTING - Etching Equipment #1 APC (Advanced Process Control) DEMO");
+        sb.append("\n* PLEASE WAIT - CDs ARE 100 RANDOM");
         sb.append("\n* A WHILE TO SEE WARNING AND CRITICAL EVENTS!");
-        sb.append("\n************************************************************\n");
+        sb.append("\n*******************************************\"*****************************\n");
         return sb.toString();
     }
 }

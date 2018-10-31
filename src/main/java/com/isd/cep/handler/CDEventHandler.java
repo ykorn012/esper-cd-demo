@@ -1,5 +1,7 @@
 package com.isd.cep.handler;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -52,12 +54,14 @@ public class CDEventHandler implements InitializingBean{
         LOG.debug("Initializing Servcie ..");
         Configuration config = new Configuration();
         config.addEventTypeAutoName("com.isd.cep.event");
-        epService = EPServiceProviderManager.getDefaultProvider(config);
-
+        config.addVariable("CurrentEvent", String.class, "DEFAULT");
+        config.addVariable("var_sampling_Count", Integer.class, 10);
+        epService = EPServiceProviderManager.getDefaultProvider(config);        
+        //epService.getEPAdministrator().createEPL("create variable integer var_sampling_count = 10");
+        
         createCriticalCDCheckExpression();
         createWarningCDCheckExpression();
-        createCDMonitorExpression();
-
+        createCDMonitorExpression();        
     }
 
     /**
@@ -65,9 +69,9 @@ public class CDEventHandler implements InitializingBean{
      * than the first event. This is checking for a sudden, sustained escalating rise in the
      * CD
      */
-    private void createCriticalCDCheckExpression() {
+    public void createCriticalCDCheckExpression() {
         
-        LOG.debug("create Critical CD Check Expression");
+        LOG.debug("create Critical Sampling CD Check Expression in Etching Equipment #1");
         criticalEventStatement = epService.getEPAdministrator().createEPL(criticalEventSubscriber.getStatement());
         criticalEventStatement.setSubscriber(criticalEventSubscriber);
     }
@@ -76,9 +80,9 @@ public class CDEventHandler implements InitializingBean{
      * EPL to check for 2 consecutive CD events over the threshold - if matched, will alert
      * listener.
      */
-    private void createWarningCDCheckExpression() {
+    public void createWarningCDCheckExpression() {
 
-        LOG.debug("create Warning CD Check Expression");
+        LOG.debug("create Warning Sampling CD Check Expression in Etching Equipment #1");
         warningEventStatement = epService.getEPAdministrator().createEPL(warningEventSubscriber.getStatement());
         warningEventStatement.setSubscriber(warningEventSubscriber);
     }
@@ -86,9 +90,9 @@ public class CDEventHandler implements InitializingBean{
     /**
      * EPL to monitor the average CD every 10 seconds. Will call listener on every event.
      */
-    private void createCDMonitorExpression() {
+    public void createCDMonitorExpression() {
 
-        LOG.debug("create Timed Average Monitor");
+        LOG.debug("create Sampling CD Average Monitor in Etching Equipment #1");
         monitorEventStatement = epService.getEPAdministrator().createEPL(monitorEventSubscriber.getStatement());
         monitorEventStatement.setSubscriber(monitorEventSubscriber);
     }
@@ -96,11 +100,27 @@ public class CDEventHandler implements InitializingBean{
     /**
      * Handle the incoming CDEvent.
      */
-    public void handle(CDEvent event) {
+    public void handle(CDEvent event){
 
         LOG.debug(event.toString());
         epService.getEPRuntime().sendEvent(event);
-
+        
+        if(epService.getEPRuntime().getVariableValue("CurrentEvent").equals("CRITICAL-COMPLETE")) { 
+        	//System.out.println("CRITICAL");
+        	monitorEventStatement.destroy();   
+        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+        	LOG.debug("★★★★★★★★★★★★★★★★  Change Dynamic Sampling Count 10 => 15 ★★★★★★★★★★★★★★★★ ");
+        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+        	epService.getEPRuntime().setVariableValue("var_sampling_Count", 15);
+            monitorEventStatement = epService.getEPAdministrator().createEPL(monitorEventSubscriber.getStatement());
+            monitorEventStatement.setSubscriber(monitorEventSubscriber);
+        	epService.getEPRuntime().setVariableValue("CurrentEvent", "DEFAULT");
+        	try {
+        		Thread.sleep(2000);
+        	} catch (InterruptedException e) {
+                LOG.error("Thread Interrupted", e);
+            }   
+        }
     }
 
     @Override
@@ -108,5 +128,6 @@ public class CDEventHandler implements InitializingBean{
         
         LOG.debug("Configuring..");
         initService();
-    }
+    }    
+
 }
