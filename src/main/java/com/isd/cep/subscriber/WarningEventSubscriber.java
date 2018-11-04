@@ -18,7 +18,7 @@ public class WarningEventSubscriber implements StatementSubscriber {
     private static Logger LOG = LoggerFactory.getLogger(WarningEventSubscriber.class);
 
     /** If 2 consecutive CD events are greater than this - issue a warning */
-    private static final String WARNING_EVENT_THRESHOLD = "400";
+    private static final String WARNING_EVENT_THRESHOLD = "300";
 
     
     /**
@@ -49,11 +49,11 @@ public class WarningEventSubscriber implements StatementSubscriber {
         CDEvent cd2 = (CDEvent) eventMap.get("cd2");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("----------------------------------------------------------------------------------------");
-        sb.append("\n- [WARNING] : Etching Equipment #1 - Virtual Metrology CD SPIKE DETECTED !!!\n");
-        sb.append("              [Detect] " + cd1 + " > ");
-        sb.append("\n              [Detect] " + cd2);
-        sb.append("\n----------------------------------------------------------------------------------------");
+        sb.append("------------------------------------------------------------------------------");
+        sb.append("\n- [VM WARNING] : Etching Virtual Metrology CD SPIKE DETECTED !!!");
+        sb.append("\n      [Detect] : " + cd1 + " > ");
+        sb.append("\n      [Detect] : " + cd2);
+        sb.append("\n------------------------------------------------------------------------------");
 
         LOG.debug(sb.toString());
     }    

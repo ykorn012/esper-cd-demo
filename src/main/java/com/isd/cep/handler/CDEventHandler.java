@@ -1,3 +1,6 @@
+/* Actual Metrology 1개 ==> Actual Metrology 2개 */
+
+
 package com.isd.cep.handler;
 
 import java.util.Date;
@@ -28,7 +31,10 @@ public class CDEventHandler implements InitializingBean{
     /** Logger */
     private static Logger LOG = LoggerFactory.getLogger(CDEventHandler.class);
 
-    /** Esper service */
+    private int actSamplingCount = 10;   
+    
+
+	/** Esper service */
     private EPServiceProvider epService;
     private EPStatement criticalEventStatement;
     private EPStatement warningEventStatement;
@@ -49,9 +55,18 @@ public class CDEventHandler implements InitializingBean{
     /**
      * Configure Esper Statement(s).
      */
+    
+    public int getActSamplingCount() {
+		return actSamplingCount;
+	}
+
+	public void setActSamplingCount(int actSamplingCount) {
+		this.actSamplingCount = actSamplingCount;
+	}
+	
     public void initService() {
 
-        LOG.debug("Initializing Servcie ..");
+        LOG.debug("Initializing Service ..");
         Configuration config = new Configuration();
         config.addEventTypeAutoName("com.isd.cep.event");
         config.addVariable("CurrentEvent", String.class, "DEFAULT");
@@ -101,20 +116,20 @@ public class CDEventHandler implements InitializingBean{
      * Handle the incoming CDEvent.
      */
     public void handle(CDEvent event){
-
-        LOG.debug(event.toString());
+    	LOG.debug(event.toString());
         epService.getEPRuntime().sendEvent(event);
         
         if(epService.getEPRuntime().getVariableValue("CurrentEvent").equals("CRITICAL-COMPLETE")) { 
-        	//System.out.println("CRITICAL");
-        	monitorEventStatement.destroy();   
-        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
-        	LOG.debug("★★★★★★★★★★★★★★★★  Change Dynamic Sampling Count 10 => 15 ★★★★★★★★★★★★★★★★ ");
-        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
-        	epService.getEPRuntime().setVariableValue("var_sampling_Count", 15);
-            monitorEventStatement = epService.getEPAdministrator().createEPL(monitorEventSubscriber.getStatement());
-            monitorEventStatement.setSubscriber(monitorEventSubscriber);
-        	epService.getEPRuntime().setVariableValue("CurrentEvent", "DEFAULT");
+        	//monitorEventStatement.destroy();   
+        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+        	LOG.debug("★★★★★★★★★★★★  [After CRITICAL Event - Dynamic Sampling] ★★★★★★★★★★★★ ");
+        	LOG.debug("★★★  Changed Sampling Count : 1 Wafer per 1 Lot ==> 3 Wafers per 1 Lot ★★★ ");
+        	LOG.debug("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+        	//epService.getEPRuntime().setVariableValue("var_sampling_Count", 20);
+        	//this.setActSamplingCount(20);
+            //monitorEventStatement = epService.getEPAdministrator().createEPL(monitorEventSubscriber.getStatement());
+            //monitorEventStatement.setSubscriber(monitorEventSubscriber);
+        	epService.getEPRuntime().setVariableValue("CurrentEvent", "CRITICAL-AFTER");
         	try {
         		Thread.sleep(2000);
         	} catch (InterruptedException e) {

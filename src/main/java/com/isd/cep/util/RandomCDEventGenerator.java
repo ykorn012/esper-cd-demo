@@ -41,7 +41,7 @@ public class RandomCDEventGenerator {
                 
                 int count = 1;
                 while (count < noOfCDEvents) {
-                    CDEvent ve = new CDEvent(count, new Random().nextInt(500), new Date());
+                    CDEvent ve = new CDEvent(count, (100 + new Random().nextInt(250)), new Date());
                     try {
                     	CDEventHandler.handle(ve);
                     	count++;
@@ -63,7 +63,13 @@ public class RandomCDEventGenerator {
         sb.append("\n* STARTING - Etching Equipment #1 APC (Advanced Process Control) DEMO");
         sb.append("\n* PLEASE WAIT - CDs ARE 100 RANDOM");
         sb.append("\n* A WHILE TO SEE WARNING AND CRITICAL EVENTS!");
-        sb.append("\n*******************************************\"*****************************\n");
+        sb.append("\n************************************************************************\n");
+        
+//        sb.append("============================================================================");
+//        sb.append("\n* Etching Equipment's Actual Metrology : 1 Sampling Wafer #1 CD [" + new Random().nextInt(500) + " nm]");
+//        sb.append("\n* Calling Virtual Metrology in Etching Process Equipment");
+//        sb.append("\n============================================================================");
+        
         return sb.toString();
     }
 }

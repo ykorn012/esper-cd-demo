@@ -53,9 +53,18 @@ public class CDEvent {
         return timeOfReading;
     }
 
+//    public String actualMetrologyAlerm() {
+//    	return "Etching Actual Metrology : Sampling Wafer #" + actindex + " CD [" + cd + " nm]";
+//    }
+//    
+//    public String virtualMetrologyAlerm() {
+//    	return "Etching Virtual Metrology : Wafer #" + vmindex + " CD [" + cd + " nm]";
+//    }
+    
     @Override
     public String toString() {
-    	return "Etching Actual Metrology : Sampling Wafer #" + index + " CD [" + cd + " mm]";
+    	int lotNo = ((index - 1) / 10) + 1;
+    	return "Etching Virtual Metrology [Lot #" + lotNo + "] : Wafer #" + index + " CD [" + cd + " nm]";
     }
 
 }

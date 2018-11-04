@@ -20,7 +20,7 @@ public class CriticalEventSubscriber implements StatementSubscriber {
     private static Logger LOG = LoggerFactory.getLogger(CriticalEventSubscriber.class);
 
     /** Used as the minimum starting threshold for a critical event. */
-    private static final String CRITICAL_EVENT_THRESHOLD = "100";
+    private static final String CRITICAL_EVENT_THRESHOLD = "150";
     
     /**
      * If the last event in a critical sequence is this much greater than the first - issue a
@@ -65,13 +65,13 @@ public class CriticalEventSubscriber implements StatementSubscriber {
 
         StringBuilder sb = new StringBuilder();
        
-        sb.append("**************************************************************************************");
-        sb.append("\n- [CRITICAL] : Etching Equipment #1 - Actual Metrology CRITICAL EVENT DETECTED!!!\n");
-        sb.append("               [Detect] " + cd1 + " > ");
-        sb.append("\n               [Detect] " + cd2 + " > ");
-        sb.append("\n               [Detect] " + cd3 + " > ");
-        sb.append("\n               [Detect] " + cd4);
-        sb.append("\n**************************************************************************************");
+        sb.append("********************************************************************************");
+        sb.append("\n- [VM CRITICAL] : Etching Virtual Metrology CRITICAL EVENT DETECTED!!!");
+        sb.append("\n       [Detect] : " + cd1 + " > ");
+        sb.append("\n       [Detect] : " + cd2 + " > ");
+        sb.append("\n       [Detect] : " + cd3 + " > ");
+        sb.append("\n       [Detect] : " + cd4);
+        sb.append("\n********************************************************************************");
         
         epService = EPServiceProviderManager.getDefaultProvider();
         epService.getEPRuntime().setVariableValue("CurrentEvent", "CRITICAL");
